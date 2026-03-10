@@ -18,7 +18,8 @@ class BarcodeWalletApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() as [Views] or [Views, InputDelegates] {
-        return [ new BarcodeWalletView(), new BarcodeWalletDelegate() ];
+        var listView = new BarcodeWalletView(CardRepository.getCards());
+        return [ listView, new BarcodeWalletDelegate(listView) ];
     }
 
 }
