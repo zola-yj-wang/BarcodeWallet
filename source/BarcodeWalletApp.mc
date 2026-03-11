@@ -22,6 +22,10 @@ class BarcodeWalletApp extends Application.AppBase {
         return [ listView, new BarcodeWalletDelegate(listView) ];
     }
 
+    function getGlanceView() as [WatchUi.GlanceView] or [WatchUi.GlanceView, WatchUi.GlanceViewDelegate] or Null {
+        return [ new BarcodeWalletGlanceView() ];
+    }
+
 }
 
 function getApp() as BarcodeWalletApp {
