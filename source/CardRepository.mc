@@ -5,14 +5,17 @@ class CardRepository {
             {
                 :id => "ah",
                 :name => "AH",
-                :label => "Member ID",
                 :value => "2622701573997"
             },
             {
-                :id => "muji",
-                :name => "MUJI",
-                :label => "Rewards",
-                :value => "8801062512345"
+                :id => "jumbo",
+                :name => "Jumbo",
+                :value => "2622364584606"
+            },
+            {
+                :id => "kruidvat",
+                :name => "Kruidvat",
+                :value => "2622014444205"
             }
         ];
     }

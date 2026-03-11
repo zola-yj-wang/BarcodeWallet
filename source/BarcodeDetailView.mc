@@ -23,7 +23,6 @@ class BarcodeDetailView extends WatchUi.View {
 
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
         dc.drawText(width / 2, 18, Graphics.FONT_SMALL, _card[:name], Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(width / 2, 36, Graphics.FONT_XTINY, _card[:label], Graphics.TEXT_JUSTIFY_CENTER);
 
         drawPseudoBarcode(dc, left, top, barcodeWidth, barcodeHeight);
 
