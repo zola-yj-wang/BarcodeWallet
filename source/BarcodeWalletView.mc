@@ -22,8 +22,8 @@ class BarcodeWalletView extends WatchUi.View {
         var countFont = Graphics.FONT_XTINY;
         var nameHeight = dc.getFontHeight(nameFont);
         var valueHeight = dc.getFontHeight(valueFont);
-        var barcodeWidth = Math.floor(width * 0.9);
-        var barcodeHeight = Math.floor(height * 0.4);
+        var barcodeWidth = Math.floor(width * 1.1);
+        var barcodeHeight = Math.floor(height * 0.5);
         var barcodeLeft = Math.floor((width - barcodeWidth) / 2);
         var barcodeTop = Math.floor((height - barcodeHeight) / 2);
         var valueTop = barcodeTop + barcodeHeight + textPadding;
@@ -60,21 +60,13 @@ class BarcodeWalletView extends WatchUi.View {
         var moduleCount = 95;
         var quietModules = 11;
         var totalModules = moduleCount + (quietModules * 2);
-        var moduleWidth = Math.floor(width / totalModules);
-        var barcodePixelWidth;
-        var barcodeLeft;
+        var barcodePixelWidth = width;
+        var barcodeLeft = left;
         var normalTop = top + 8;
         var normalHeight = height - 16;
         var guardTop = top + 2;
         var guardHeight = height - 4;
         var i = 0;
-
-        if (moduleWidth < 1) {
-            moduleWidth = 1;
-        }
-
-        barcodePixelWidth = totalModules * moduleWidth;
-        barcodeLeft = left + Math.floor((width - barcodePixelWidth) / 2);
 
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.fillRectangle(barcodeLeft, top, barcodePixelWidth, height);
@@ -82,7 +74,10 @@ class BarcodeWalletView extends WatchUi.View {
         while (i < pattern.length()) {
             var bit = pattern.substring(i, i + 1).toNumber();
             if (bit == 1) {
-                var drawX = barcodeLeft + ((quietModules + i) * moduleWidth);
+                var startModule = quietModules + i;
+                var endModule = startModule + 1;
+                var startX = barcodeLeft + Math.floor((startModule * barcodePixelWidth) / totalModules);
+                var endX = barcodeLeft + Math.floor((endModule * barcodePixelWidth) / totalModules);
                 var barTop = normalTop;
                 var barHeight = normalHeight;
 
@@ -91,12 +86,12 @@ class BarcodeWalletView extends WatchUi.View {
                     barHeight = guardHeight;
                 }
 
-                dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-                var column = 0;
-                while (column < moduleWidth) {
-                    dc.drawLine(drawX + column, barTop, drawX + column, barTop + barHeight - 1);
-                    column += 1;
+                if (endX <= startX) {
+                    endX = startX + 1;
                 }
+
+                dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+                dc.fillRectangle(startX, barTop, endX - startX, barHeight);
             }
 
             i += 1;
