@@ -10,7 +10,6 @@ class BarcodeWalletGlanceView extends WatchUi.GlanceView {
     }
 
     function onUpdate(dc as Dc) as Void {
-        var width = dc.getWidth();
         var height = dc.getHeight();
         var leftPadding = 8;
         var appName = Application.loadResource(Rez.Strings.AppName) as Lang.String;

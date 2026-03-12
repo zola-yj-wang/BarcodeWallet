@@ -15,6 +15,17 @@ class BarcodeWalletView extends WatchUi.View {
     function onUpdate(dc as Dc) as Void {
         var width = dc.getWidth();
         var height = dc.getHeight();
+
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_WHITE);
+        dc.clear();
+
+        if (_cards.size() == 0) {
+            dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(width / 2, height / 2 - 30, Graphics.FONT_SMALL, "No cards configured", Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(width / 2, height / 2 + 20, Graphics.FONT_XTINY, "Set cards in Connect IQ", Graphics.TEXT_JUSTIFY_CENTER);
+            return;
+        }
+
         var card = getSelectedCard();
         var textPadding = 10;
         var nameFont = Graphics.FONT_XTINY;
@@ -29,9 +40,6 @@ class BarcodeWalletView extends WatchUi.View {
         var valueTop = barcodeTop + barcodeHeight + textPadding;
         var countText = (_selectedIndex + 1).toString() + "/" + _cards.size().toString();
 
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_WHITE);
-        dc.clear();
-
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
         dc.drawText(width / 2, barcodeTop - nameHeight - textPadding, nameFont, card[:name], Graphics.TEXT_JUSTIFY_CENTER);
 
@@ -44,14 +52,23 @@ class BarcodeWalletView extends WatchUi.View {
     }
 
     function nextCard() as Void {
+        if (_cards.size() == 0) {
+            return;
+        }
         _selectedIndex = (_selectedIndex + 1) % _cards.size();
     }
 
     function previousCard() as Void {
+        if (_cards.size() == 0) {
+            return;
+        }
         _selectedIndex = (_selectedIndex - 1 + _cards.size()) % _cards.size();
     }
 
     function getSelectedCard() {
+        if (_cards.size() == 0) {
+            return null;
+        }
         return _cards[_selectedIndex];
     }
 

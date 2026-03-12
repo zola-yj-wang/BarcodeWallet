@@ -3,4 +3,5 @@
     <string id="prompt">BarcodeWallet</string>
     <string id="menu_label_1">Placeholder 1</string>
     <string id="menu_label_2">Placeholder 2</string>
+    <string id="CardsConfigTitle">EAN-13 Cards (Name|Barcode;Name|Barcode)</string>
 </strings>
